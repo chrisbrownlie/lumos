@@ -25,6 +25,12 @@ You can install the development version of lumos from
 devtools::install_github("chrisbrownlie/lumos")
 ```
 
+## Classes
+
+The package provides a set of R6 classes (stage, candelabra and candle)
+which are primarily for use in the lumos app - and as such are
+reactive-aware - but can also be used outside the app if desired.
+
 ## Lighting app
 
 You can launch the lumos app with the code below, or visit it at
@@ -39,4 +45,4 @@ lumos::run_app()
 ## Contact
 
 For more information, contact [Chris
-Brownlie](chris.brownlie@hotmail.co.uk)
+Brownlie](mailto:chris.brownlie@hotmail.co.uk)
