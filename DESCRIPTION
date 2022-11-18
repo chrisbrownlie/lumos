@@ -1,0 +1,19 @@
+Package: lumos
+Title: Modelling Candelabra Stage Lighting
+Version: 0.0.0.9000
+Authors@R: 
+    person("Chris", "Brownlie", , "chris.brownlie@hotmail.co.uk", role = c("aut", "cre"))
+Description: Provides functions for modelling stage lighting
+  with candles and candelabras, and visualising the effect on light levels
+  across the stage.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.2
+Depends:
+  plotly,
+  dplyr,
+  R6,
+  purrr,
+  shiny,
+  shinycssloaders
