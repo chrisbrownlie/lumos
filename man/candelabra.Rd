@@ -57,7 +57,15 @@ floor of the stage}
 \subsection{Method \code{new()}}{
 create a new object of class 'candelabra'
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{candelabra$new(stage, centre_position, n_candles, radius)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{candelabra$new(
+  stage,
+  centre_position,
+  n_candles,
+  radius,
+  candle_lumens,
+  candle_height,
+  height
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -71,6 +79,12 @@ of this candelabra on the stage}
 \item{\code{n_candles}}{the number of candle objects to initiate in the candelabra}
 
 \item{\code{radius}}{the radius of the candelabra in cm}
+
+\item{\code{candle_lumens}}{the amount of light each candle gives off in lumens}
+
+\item{\code{candle_height}}{the height of each candle in cm}
+
+\item{\code{height}}{the height of the candelabra from the floor in cm}
 }
 \if{html}{\out{</div>}}
 }

@@ -27,6 +27,7 @@ candle <- R6::R6Class(
     #' the centre of the candelabra in which it sits
     #' @param y_offset the distance (cm) in the y direction between the new candle and
     #' the centre of the candelabra in which it sits
+    #' @param candle_height the height of the candle in cm
     initialize = function(candelabra,
                           lumens,
                           x_offset,

@@ -55,7 +55,7 @@ of the candelabra in which it sits}
 \subsection{Method \code{new()}}{
 create a new candle object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{candle$new(candelabra, lumens, x_offset, y_offset)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{candle$new(candelabra, lumens, x_offset, y_offset, candle_height)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -70,6 +70,8 @@ the centre of the candelabra in which it sits}
 
 \item{\code{y_offset}}{the distance (cm) in the y direction between the new candle and
 the centre of the candelabra in which it sits}
+
+\item{\code{candle_height}}{the height of the candle in cm}
 }
 \if{html}{\out{</div>}}
 }

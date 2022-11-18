@@ -36,6 +36,7 @@ stage <- R6::R6Class(
     #' @param depth the depth of the stage in cm
     #' @param name a human-readable alias for the stage
     #' @param max_lux a comparison level of lux to always be able to compare to
+    #' @param unit_scaling the square size in cm of each stage unit
     initialize = function(n_candelabras = 0,
                           width = 1200,
                           depth = 800,
@@ -93,6 +94,7 @@ stage <- R6::R6Class(
     },
 
     #' @description change the name of the stage
+    #' @param new_name name to change the stage name to
     change_name = function(new_name) {
       self$name <- new_name
       self$invalidate()
@@ -105,6 +107,7 @@ stage <- R6::R6Class(
     #' @param r the radius in cm of the new candelabra
     #' @param l the lumens of each candle in the new candelabra
     #' @param h the height of the new candelabra
+    #' @param ch the height of each candle in the candelabra in cm
     #' @return adds a new candelabra object to the stage
     add_candelabra = function(x, y, n = 10, r = 30, l = 10, ch = 15, h = 1000) {
       private$.candelabras[[length(private$.candelabras)+1]] <- candelabra$new(
@@ -123,6 +126,7 @@ stage <- R6::R6Class(
     #' @description move a candelabra on the stage
     #' @param i the index of the candelabra
     #' @param new_x the new x coordinate of the candelabra
+    #' @param new_y the new y coordinate of the candelabra
     move_candelabra = function(i, new_x, new_y) {
       private$.candelabras[[i]]$move_to(new_x, new_y)
       self$invalidate()
@@ -152,6 +156,9 @@ stage <- R6::R6Class(
     },
 
     #' @description plot the stage lighting
+    #' @param show_candelabras logical, if TRUE the candelabra positions will
+    #' be shown on the lux plot. If FALSE they will not be visible (but the light
+    #' they produce still will be)
     #' @return a plotly plot of the stage with each stage unit showing how much lux
     #' it has
     plot_light = function(show_candelabras = TRUE) {

@@ -32,6 +32,9 @@ candelabra <- R6::R6Class(
     #' of this candelabra on the stage
     #' @param n_candles the number of candle objects to initiate in the candelabra
     #' @param radius the radius of the candelabra in cm
+    #' @param candle_lumens the amount of light each candle gives off in lumens
+    #' @param candle_height the height of each candle in cm
+    #' @param height the height of the candelabra from the floor in cm
     #'
     #' @return an object of class candelabra containing multiple objects of class candle
     initialize = function(stage,

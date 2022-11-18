@@ -55,7 +55,11 @@ tibble used for plotting}
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-stage-new}{\code{stage$new()}}
+\item \href{#method-stage-reactive}{\code{stage$reactive()}}
+\item \href{#method-stage-invalidate}{\code{stage$invalidate()}}
+\item \href{#method-stage-change_name}{\code{stage$change_name()}}
 \item \href{#method-stage-add_candelabra}{\code{stage$add_candelabra()}}
+\item \href{#method-stage-move_candelabra}{\code{stage$move_candelabra()}}
 \item \href{#method-stage-remove_candelabra}{\code{stage$remove_candelabra()}}
 \item \href{#method-stage-plot}{\code{stage$plot()}}
 \item \href{#method-stage-plot_light}{\code{stage$plot_light()}}
@@ -73,7 +77,8 @@ create a new stage object
   width = 1200,
   depth = 800,
   name = "new_stage",
-  max_lux = 2
+  max_lux = 10,
+  unit_scaling = default("unit_scaling")
 )}\if{html}{\out{</div>}}
 }
 
@@ -89,6 +94,48 @@ create a new stage object
 \item{\code{name}}{a human-readable alias for the stage}
 
 \item{\code{max_lux}}{a comparison level of lux to always be able to compare to}
+
+\item{\code{unit_scaling}}{the square size in cm of each stage unit}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-stage-reactive"></a>}}
+\if{latex}{\out{\hypertarget{method-stage-reactive}{}}}
+\subsection{Method \code{reactive()}}{
+return a reactive version of the object that can be used in
+a shiny app
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{stage$reactive()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-stage-invalidate"></a>}}
+\if{latex}{\out{\hypertarget{method-stage-invalidate}{}}}
+\subsection{Method \code{invalidate()}}{
+invalidate the object, in a shiny setting
+This should be run whenever something happens that the reactive shiny
+context needs to be aware of
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{stage$invalidate()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-stage-change_name"></a>}}
+\if{latex}{\out{\hypertarget{method-stage-change_name}{}}}
+\subsection{Method \code{change_name()}}{
+change the name of the stage
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{stage$change_name(new_name)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{new_name}}{name to change the stage name to}
 }
 \if{html}{\out{</div>}}
 }
@@ -99,7 +146,7 @@ create a new stage object
 \subsection{Method \code{add_candelabra()}}{
 add a candelabra to the stage
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{stage$add_candelabra(x, y, n, r)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{stage$add_candelabra(x, y, n = 10, r = 30, l = 10, ch = 15, h = 1000)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -112,11 +159,38 @@ add a candelabra to the stage
 \item{\code{n}}{the number of candles in the new candelabra}
 
 \item{\code{r}}{the radius in cm of the new candelabra}
+
+\item{\code{l}}{the lumens of each candle in the new candelabra}
+
+\item{\code{ch}}{the height of each candle in the candelabra in cm}
+
+\item{\code{h}}{the height of the new candelabra}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
 adds a new candelabra object to the stage
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-stage-move_candelabra"></a>}}
+\if{latex}{\out{\hypertarget{method-stage-move_candelabra}{}}}
+\subsection{Method \code{move_candelabra()}}{
+move a candelabra on the stage
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{stage$move_candelabra(i, new_x, new_y)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{i}}{the index of the candelabra}
+
+\item{\code{new_x}}{the new x coordinate of the candelabra}
+
+\item{\code{new_y}}{the new y coordinate of the candelabra}
+}
+\if{html}{\out{</div>}}
 }
 }
 \if{html}{\out{<hr>}}
@@ -160,9 +234,18 @@ on it
 \subsection{Method \code{plot_light()}}{
 plot the stage lighting
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{stage$plot_light()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{stage$plot_light(show_candelabras = TRUE)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{show_candelabras}}{logical, if TRUE the candelabra positions will
+be shown on the lux plot. If FALSE they will not be visible (but the light
+they produce still will be)}
+}
+\if{html}{\out{</div>}}
+}
 \subsection{Returns}{
 a plotly plot of the stage with each stage unit showing how much lux
 it has
