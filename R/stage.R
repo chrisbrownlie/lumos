@@ -27,21 +27,17 @@ stage <- R6::R6Class(
     #' have its lux calculated (lower number will result in larger computation times)
     unit_scaling = NULL,
 
-    #' @field max_lux a fixed comparison level of lux to ensure plots are always comparable to
-    max_lux = NULL,
 
     #' @description create a new stage object
     #' @param n_candelabras the number of candelabras to initiate on the stage
     #' @param width the width of the stage in cm
     #' @param depth the depth of the stage in cm
     #' @param name a human-readable alias for the stage
-    #' @param max_lux a comparison level of lux to always be able to compare to
     #' @param unit_scaling the square size in cm of each stage unit
     initialize = function(n_candelabras = 0,
                           width = 1200,
                           depth = 800,
                           name = "new_stage",
-                          max_lux = 10,
                           unit_scaling = default("unit_scaling")) {
 
       private$.id <- uuid::UUIDgenerate()
@@ -49,7 +45,6 @@ stage <- R6::R6Class(
       self$unit_scaling <- unit_scaling
       self$width <- width
       self$depth <- depth
-      self$max_lux <- max_lux
 
       private$.candelabras <- lapply(seq_len(n_candelabras),
                             \(x) {
@@ -184,9 +179,16 @@ stage <- R6::R6Class(
     #' @param show_candelabras logical, if TRUE the candelabra positions will
     #' be shown on the lux plot. If FALSE they will not be visible (but the light
     #' they produce still will be)
+    #' @param max_lux the maximum lux level for the heatmap scale
     #' @return a plotly plot of the stage with each stage unit showing how much lux
     #' it has
-    plot_light = function(show_candelabras = TRUE) {
+    plot_light = function(show_candelabras = TRUE,
+                          max_lux = 10) {
+      if (length(self$candelabras) == 0) {
+        plotcolours <- "black"
+      } else {
+        plotcolours <- colorRamp(c("black", "yellow"))
+      }
       plot <- plot_ly(self$lux_grid,
                       width = self$width,
                       height = self$depth) %>%
@@ -198,9 +200,9 @@ stage <- R6::R6Class(
           text = ~lux_hover_label,
           hoverinfo = "text",
           zmin = 0,
-          zmax = max(self$max_lux, max(self$lux_grid$lux)),
+          zmax = max(max_lux, max(self$lux_grid$lux)),
           zauto = FALSE,
-          colors = colorRamp(c("black", "yellow"))
+          colors = plotcolours
         )
       if (length(private$.candelabras) && show_candelabras) {
         plot <- plot %>%

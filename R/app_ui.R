@@ -86,7 +86,11 @@ app_ui <- function() {
 
             checkboxInput("show_candelabra",
                           "Show candelabra on lux plot?",
-                          value = TRUE)
+                          value = TRUE),
+            numericInput("max_lux",
+                         "Maximum lux value",
+                         value = 10,
+                         min = 1)
           )
         )
       ),
@@ -136,6 +140,9 @@ app_ui <- function() {
             width = NULL,
             height = NULL,
             title = h1("Stage lighting"),
+            p("On the plot below, black represents complete darkness
+              and brighter yellow colours indicate higher levels of light.
+              You can set the maximum lux level using the option above."),
             uiOutput("plot_container")
             )
           )

@@ -11,7 +11,8 @@ app_server <- function(input, output, session) {
   current_stage <- stage$new(0)$reactive()
 
   output$stage_light_plot <- plotly::renderPlotly(
-    current_stage()$plot_light(show_candelabras = input$show_candelabra) %>%
+    current_stage()$plot_light(show_candelabras = input$show_candelabra,
+                               max_lux = input$max_lux) %>%
       event_register('plotly_click')
   )
 
