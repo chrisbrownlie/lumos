@@ -7,11 +7,9 @@
 app_ui <- function() {
 
   shinydashboard::dashboardPage(
-    title = "Lumos | Chris Brownlie",
+    title = "Lumos",
 
     skin = "yellow",
-
-    shinydisconnect::disconnectMessage2(),
 
     # Head
     header = shinydashboard::dashboardHeader(
@@ -28,7 +26,9 @@ app_ui <- function() {
     body = shinydashboard::dashboardBody(
 
       # HTML Headers
-      tags$head(
+      tags$header(
+        # Add nice disconnect message
+        shinydisconnect::disconnectMessage2(),
         # Include custom CSS
         tags$link(href = "style.css", rel = "stylesheet", type = "text/css"),
         # Include favicon
