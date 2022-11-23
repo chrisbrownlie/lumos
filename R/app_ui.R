@@ -28,7 +28,7 @@ app_ui <- function() {
       # HTML Headers
       tags$header(
         # Add nice disconnect message
-        shinydisconnect::disconnectMessage2(),
+        shinydisconnect::disconnectMessage(),
         # Include custom CSS
         tags$link(href = "style.css", rel = "stylesheet", type = "text/css"),
         # Include favicon
