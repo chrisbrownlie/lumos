@@ -16,4 +16,6 @@ Depends:
   R6,
   purrr,
   shiny,
-  shinycssloaders
+  shinycssloaders,
+  shinydashboard,
+  shinydisconnect

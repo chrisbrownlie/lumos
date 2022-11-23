@@ -11,6 +11,8 @@ app_ui <- function() {
 
     skin = "yellow",
 
+    shinydisconnect::disconnectMessage2(),
+
     # Head
     header = shinydashboard::dashboardHeader(
       disable = TRUE
