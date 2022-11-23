@@ -80,7 +80,9 @@ app_ui <- function() {
                          "Size of each stage unit (NOTE: lower values will result in long processing times)",
                          value = 10),
             actionButton("update_stage",
-                         "Update stage (note this will remove all existing candelabra)"),
+                         "Update stage"),
+            p("Note that updating the stage size will remove any candelabras
+              that would not fit on the new stage."),
 
             checkboxInput("show_candelabra",
                           "Show candelabra on lux plot?",
@@ -95,6 +97,7 @@ app_ui <- function() {
             width = NULL,
             title = "Candelabras",
             h4("New candelabra:"),
+            p(tags$i("Tip: click on the stage plot to set the x and y coordinates automatically")),
             numericInput("new_x_location",
                          "X coordinate of new candelabra",
                          value = 0),

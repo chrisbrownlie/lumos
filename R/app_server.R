@@ -8,10 +8,10 @@
 #' @export
 app_server <- function(input, output, session) {
 
-  stage <- stage$new(0)$reactive()
+  current_stage <- stage$new(0)$reactive()
 
   output$stage_light_plot <- plotly::renderPlotly(
-    stage()$plot_light(show_candelabras = input$show_candelabra) %>%
+    current_stage()$plot_light(show_candelabras = input$show_candelabra) %>%
       event_register('plotly_click')
   )
 
@@ -44,38 +44,15 @@ app_server <- function(input, output, session) {
 
     tags$ul(
       purrr::imap(
-        stage()$candelabras,
-        function(clb, i) {
-          tags$li(
-            paste0("Candelabra ", i),
-            tags$ul(
-              tags$li(paste0("X: ", clb$x_position)),
-              tags$li(paste0("Y: ", clb$y_position)),
-              tags$li(paste0("# candles: ", clb$n_candles)),
-              tags$li(paste0("Radius: ", clb$radius)),
-              tags$li(paste0("Height: ", clb$height)),
-              tags$li(paste0("Candle lumens: ", clb$candles[[1]]$lumens)),
-              tags$li(paste0("Candle height: ", clb$candles[[1]]$candle_height)),
-              tags$div(
-                style = "width:50%;float:left",
-                actionButton(paste0("move_clb_", i),
-                             paste0("Move to (", paste(last_selected_point(), collapse = ","), ")"))
-              ),
-              tags$div(
-                style = "width:50%;float:left",
-                actionButton(paste0("remove_clb_", i),
-                             "Remove candelabra")
-              )
-            )
-          )
-        }
+        current_stage()$candelabras,
+        ~candelabra_ui(.x$id)
       )
     )
 
   })
 
   observeEvent(input$add_new_candelabra, {
-    stage()$add_candelabra(
+    current_stage()$add_candelabra(
       x = input$new_x_location,
       y = input$new_y_location,
       r = input$new_radius,
@@ -84,30 +61,21 @@ app_server <- function(input, output, session) {
       n = input$new_n_candles,
       ch = input$new_candle_height
     )
+
+    new_clb <- current_stage()$candelabras[[length(current_stage()$candelabras)]]
+
+    candelabra_server(id = new_clb$id,
+                      lsp = last_selected_point,
+                      clb = new_clb,
+                      stg = current_stage)
   })
 
   observeEvent(input$update_stage, {
-    stage <- stage$new(0,
-                       width = input$stage_width,
-                       depth = input$stage_depth,
-                       unit_scaling = input$unit_scaling)$reactive()
-  })
-
-  # TODO: convert to modules
-  observe({
-    print("running creation observer")
-      lapply(
-        seq_len(length(stage()$candelabras)),
-        function(i, lsp = isolate(last_selected_point())) {
-          observeEvent(input[[paste0("move_clb_", i)]], {
-            print(paste0("running observer for candelabra ", i))
-            stage()$move_candelabra(i, lsp[1], lsp[2])
-          })
-          observeEvent(input[[paste0("remove_clb_", i)]], {
-            stage()$remove_candelabra(i)
-          })
-        }
-      )
+    current_stage()$change_size(
+      w = input$stage_width,
+      d = input$stage_depth,
+      us = input$unit_scaling
+    )
   })
 
 }

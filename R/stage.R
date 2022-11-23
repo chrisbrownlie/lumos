@@ -143,6 +143,31 @@ stage <- R6::R6Class(
       self$invalidate()
     },
 
+    #' @description change the size of the stage
+    #' @param w the new width of the stage
+    #' @param d the new depth of the stage
+    #' @param us the new unit scaling to use
+    #' @return changes the size of the stage
+    change_size = function(w,d,us) {
+      # Remove candelabras that would be off the new stage
+      xs <- map(self$candelabras, ~.x$x_position)
+      ys <- map(self$candelabras, ~.x$y_position)
+
+      removals <- which(xs > w|ys > d)
+      purrr::walk(
+        removals,
+        ~self$remove_candelabra(.x)
+      )
+
+      self$width <- w
+      self$depth <- d
+      self$unit_scaling <- us
+
+      self$invalidate()
+
+      invisible(self)
+    },
+
     #' @description plot candelabra positions
     #' @return a plotly plot of the stage with the candelabra and candle positions marked
     #' on it
