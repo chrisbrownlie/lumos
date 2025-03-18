@@ -104,7 +104,7 @@ stage <- R6::R6Class(
     #' @param h the height of the new candelabra
     #' @param ch the height of each candle in the candelabra in cm
     #' @return adds a new candelabra object to the stage
-    add_candelabra = function(x, y, n = 10, r = 30, l = 12, ch = 15, h = 100) {
+    add_candelabra = function(x, y, n = 10, r = 30, l = 12.57, ch = 15, h = 100) {
       private$.candelabras[[length(private$.candelabras)+1]] <- candelabra$new(
         stage = self,
         n_candles = n,
@@ -216,7 +216,7 @@ stage <- R6::R6Class(
             type = "scatter",
             mode = "markers",
             hovertemplate = paste0("Chandelier: <i>%{customdata}</i><br>",
-                                   "Lumens from candle: <b>%{text}</b>",
+                                   "Lumens from each candle: <b>%{text}</b>",
                                    "<extra></extra>")
           )
       }
