@@ -1,0 +1,83 @@
+---
+title: "Stage lighting arrangements"
+date: today
+format:
+  html:
+    embed-resources: true
+---
+```{r}
+#| label: load-packages
+#| include: false
+devtools::load_all()
+options(warn = 0)
+```
+## Stage 1
+
+- 7mx7m stage
+- 2 chandeliers
+  - 15 candles
+  - 0.6m diameter
+  - centred 2m from side of stage, over front edge of stage
+
+Assumptions:
+
+- Lux values shown for 1m distance (assuming 3m high and actors 2m tall, lux is at roughly head height)
+- Candles 10cm tall, 10 lumens (10/4π lumens used to calculate lux at a point)
+- Candles placed equidistant from each other around chandelier
+  
+```{r}
+#| echo: false
+stage_1 <- stage$new(width = 700, depth = 700, unit_scaling = 20)
+
+stage_1$add_candelabra(x = 200, y = 0, n = 15, r = 30, h = 100)
+stage_1$add_candelabra(x = 500, y = 0, n = 15, r = 30, h = 100)
+
+stage_1$plot_light()
+```
+
+## Stage 2
+
+As above, but with the chandeliers fully over the stage
+
+```{r}
+#| echo: false
+stage_2 <- stage$new(width = 700, depth = 700, unit_scaling = 20)
+
+stage_2$add_candelabra(x = 200, y = 60, n = 15, r = 30, h = 100)
+stage_2$add_candelabra(x = 500, y = 60, n = 15, r = 30, h = 100)
+
+stage_2$plot_light()
+```
+
+## Stage 3
+
+As stage 1, with two extra chandeliers.
+
+```{r}
+#| echo: false
+stage_3 <- stage$new(width = 700, depth = 700, unit_scaling = 20)
+
+stage_3$add_candelabra(x = 200, y = 0, n = 15, r = 30, h = 100)
+stage_3$add_candelabra(x = 500, y = 0, n = 15, r = 30, h = 100)
+stage_3$add_candelabra(x = 200, y = 300, n = 15, r = 30, h = 100)
+stage_3$add_candelabra(x = 500, y = 300, n = 15, r = 30, h = 100)
+
+stage_3$plot_light()
+```
+
+## Stage 4
+
+As stage 2, with two extra chandeliers (the same distance away from the front two chandeliers, so further back on the stage).
+
+```{r}
+#| echo: false
+stage_4 <- stage$new(width = 700, depth = 700, unit_scaling = 20)
+
+stage_4$add_candelabra(x = 200, y = 60, n = 15, r = 30, h = 100)
+stage_4$add_candelabra(x = 500, y = 60, n = 15, r = 30, h = 100)
+stage_4$add_candelabra(x = 200, y = 360, n = 15, r = 30, h = 100)
+stage_4$add_candelabra(x = 500, y = 360, n = 15, r = 30, h = 100)
+
+stage_4$plot_light()
+```
+

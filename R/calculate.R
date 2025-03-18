@@ -9,7 +9,7 @@
 #' @return a number indicating the lux that the light source gives
 #' @export
 calculate_lux <- function(lumens, distance) {
-  lumens/((distance/100)^2)
+  (lumens/(4*pi))/((distance/100)^2)
 }
 v_calc_lux <- Vectorize(calculate_lux)
 

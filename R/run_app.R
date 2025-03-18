@@ -14,15 +14,17 @@
 run_app <- function() {
 
   if (interactive()) {
-    
+
     runApp(appDir = system.file("app",
                                 package = "lumos"))
-    
+
   } else {
-    
+
     shinyAppDir(appDir = system.file("app",
-                                     package = "lumos"))
-    
+                                     package = "lumos"),
+                options = list(host = "0.0.0.0",
+                               port = 3838))
+
   }
 
 }

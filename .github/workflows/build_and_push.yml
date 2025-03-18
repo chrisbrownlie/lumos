@@ -1,0 +1,38 @@
+name: Build & push Docker
+
+on:
+  push:
+   branches: [main]
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      -
+        name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          tags: christopherbrownlie/lumos:latest
+
+      - name: Pull new image on DigitalOcean droplet
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: 138.68.150.73
+          username: ghactions
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          script: |
+            docker pull christopherbrownlie/lumos:latest
